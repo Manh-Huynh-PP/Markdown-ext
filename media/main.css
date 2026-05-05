@@ -1,0 +1,378 @@
+:root {
+    --bg-color: var(--vscode-editor-background);
+    --card-bg: var(--vscode-editorWidget-background, #161b22);
+    --border-color: var(--vscode-editorWidget-border, #30363d);
+    --accent-color: var(--vscode-button-background, #58a6ff);
+    --text-primary: var(--vscode-editor-foreground, #c9d1d9);
+    --text-secondary: var(--vscode-descriptionForeground, #8b949e);
+    --code-bg: var(--vscode-textCodeBlock-background, #0d1117);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 5rem 2rem 2rem; /* Added right padding for buttons */
+}
+
+/* Headings matching the image */
+h1, h2 {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+h3, h4, h5 {
+    color: var(--accent-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.bracket-text {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.preview-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.header-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+.header-btn:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+.badge {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.file-title {
+    margin: 0.5rem 0 0 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+/* Premium Code Wrapper */
+.premium-code-wrapper {
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: visible; /* Changed from hidden to show the comment button */
+    position: relative;
+    box-shadow: none;
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0.8rem;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.code-lang {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+.copy-btn {
+    background: transparent;
+    border: 1px solid rgba(88, 166, 255, 0.4);
+    color: var(--accent-color);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: rgba(88, 166, 255, 0.1);
+    border-color: var(--accent-color);
+}
+
+.copy-btn.copied {
+    background: rgba(46, 160, 67, 0.1);
+    border-color: #3fb950;
+    color: #3fb950;
+}
+
+.icon {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+}
+
+.code-body {
+    padding: 1.2rem;
+    overflow-x: auto;
+    background: var(--code-bg);
+}
+
+.code-body pre {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+}
+
+.code-body code {
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--text-primary);
+    background: none !important;
+}
+
+/* Universal Comment Buttons */
+.commentable-block {
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+.commentable-block:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+}
+
+.global-comment-btn {
+    position: absolute;
+    top: 50%;
+    right: -40px;
+    transform: translateY(-50%);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    opacity: 0;
+    z-index: 10;
+}
+
+/* Specific styling when inside code-header to prevent overlap - REMOVED, using unified outside positioning */
+
+.commentable-block:hover > .global-comment-btn,
+.global-comment-btn.has-comment {
+    opacity: 1;
+}
+
+.global-comment-btn:hover {
+    background: var(--border-color);
+    color: var(--text-primary);
+}
+
+.global-comment-btn.has-comment {
+    background: rgba(46, 160, 67, 0.1);
+    border-color: #3fb950;
+    color: #3fb950;
+}
+
+/* Modal Popup (Compact and positioned) */
+.comment-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.1); /* Very subtle overlay */
+    display: none;
+    z-index: 1000;
+    pointer-events: none; /* Allow interaction with background unless modal is hit */
+}
+
+.comment-modal-overlay.active {
+    display: block;
+}
+
+.comment-modal {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    width: 280px; /* More compact */
+    padding: 1rem;
+    box-shadow: none;
+    position: absolute; /* Positioned relative to button via JS */
+    pointer-events: auto;
+}
+
+.comment-modal h3 {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem; /* Smaller */
+    color: var(--accent-color);
+}
+
+.comment-modal textarea {
+    width: 100%;
+    height: 80px; /* Smaller */
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    padding: 0.6rem;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+.comment-modal textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+}
+
+.modal-btn {
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.modal-btn.cancel {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.modal-btn.cancel:hover {
+    color: var(--text-primary);
+    background: rgba(255,255,255,0.05);
+}
+
+.modal-btn.save {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+.modal-btn.save:hover {
+    opacity: 0.9;
+}
+
+/* Submit Comments Button in Header */
+.submit-comments-btn {
+    background: var(--accent-color);
+    color: var(--vscode-button-foreground, white);
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: none;
+}
+
+.submit-comments-btn.active {
+    display: flex;
+}
+
+.submit-comments-btn.submitting {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.submit-comments-btn.submitting .icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Image Styling */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: none;
+    display: block;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
