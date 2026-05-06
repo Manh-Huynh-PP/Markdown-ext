@@ -1,4 +1,4 @@
-# PromptAgent Preview
+# Markdown Preview
 
 A premium VS Code / Antigravity extension designed for Prompt Engineers. It provides a stunning, theme-aware Markdown preview optimized for reviewing and commenting on prompts.
 
