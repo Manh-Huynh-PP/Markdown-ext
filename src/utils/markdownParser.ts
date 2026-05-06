@@ -82,6 +82,7 @@ export class MarkdownParser {
                 }
                 
                 const renderedCode = defaultRender(tokens, idx, options, env, self);
+                const highlightedCode = renderedCode.replace(/\[([^\]]+)\]/g, '<span class="bracket-text">[$1]</span>');
                 
                 return `
                 <div class="premium-code-wrapper commentable-block" data-line-start="${lineStart}" data-line-end="${lineEnd}">
@@ -93,7 +94,7 @@ export class MarkdownParser {
                         </button>
                     </div>
                     <div class="code-body">
-                        ${renderedCode}
+                        ${highlightedCode}
                     </div>
                 </div>
             `;
