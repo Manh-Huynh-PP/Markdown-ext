@@ -1,9 +1,18 @@
 {
   "name": "promptagent-preview",
   "displayName": "PromptAgent Preview",
-  "description": "Premium Markdown Preview optimized for Prompt Engineering with Auto-Open and Persistent Copy.",
+  "description": "Premium theme-aware Markdown preview optimized for Prompt Engineers with feedback and Agent integration.",
   "version": "1.0.0",
-  "publisher": "antigravity",
+  "publisher": "manhhuynh",
+  "icon": "public/icon.png",
+  "keywords": [
+    "prompt",
+    "markdown",
+    "preview",
+    "agent",
+    "feedback",
+    "ai"
+  ],
   "engines": {
     "vscode": "^1.75.0"
   },
