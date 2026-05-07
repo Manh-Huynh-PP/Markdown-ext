@@ -76,7 +76,7 @@ export class MarkdownParser {
                 } catch (e) {}
 
                 // Custom renderer for block rules to add line mapping
-                const blockRules = ['paragraph', 'heading', 'blockquote', 'table', 'bullet_list', 'ordered_list', 'list_item'];
+                const blockRules = ['paragraph', 'heading', 'blockquote', 'bullet_list', 'ordered_list', 'list_item'];
                 blockRules.forEach(rule => {
                     const defaultOpen = md.renderer.rules[`${rule}_open`] || function(tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) {
                         return self.renderToken(tokens, idx, options);
@@ -92,6 +92,26 @@ export class MarkdownParser {
                         return defaultOpen(tokens, idx, options, env, self);
                     };
                 });
+
+                // Specialized Table Renderer (Wrapped for Comment Button & Scroll)
+                const defaultTableOpen = md.renderer.rules.table_open || function(tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) {
+                    return self.renderToken(tokens, idx, options);
+                };
+                const defaultTableClose = md.renderer.rules.table_close || function(tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) {
+                    return self.renderToken(tokens, idx, options);
+                };
+
+                md.renderer.rules.table_open = (tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) => {
+                    const token = tokens[idx];
+                    let lineAttr = '';
+                    if (token.map) {
+                        lineAttr = ` data-line-start="${token.map[0] + 1}" data-line-end="${token.map[1]}"`;
+                    }
+                    return `<div class="table-wrapper commentable-block"${lineAttr}>${defaultTableOpen(tokens, idx, options, env, self)}`;
+                };
+                md.renderer.rules.table_close = (tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) => {
+                    return `${defaultTableClose(tokens, idx, options, env, self)}</div>`;
+                };
 
                 // Custom image resolver
                 const defaultImageRender = md.renderer.rules.image || function(tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) {

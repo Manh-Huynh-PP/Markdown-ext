@@ -239,9 +239,8 @@ a:hover {
     opacity: 1;
 }
 
-/* Fix for nested or overflowing blocks (e.g. inside carousel or tables) to prevent clipping */
-.carousel-track .commentable-block > .global-comment-btn,
-.table-wrapper > .global-comment-btn {
+/* Fix for nested blocks to prevent clipping while keeping buttons outside */
+.carousel-track .commentable-block > .global-comment-btn {
     right: 8px;
     top: 8px;
     background: var(--bg-color);
@@ -482,19 +481,22 @@ img:hover {
 /* Table Styles */
 .table-wrapper {
     margin: 1.5rem 0;
-    overflow-x: auto;
-    overflow-y: visible; /* Allow comment button to show */
     position: relative;
+    overflow: visible; /* Allow button to sit outside at -38px */
+}
+
+.table-scroll-container {
+    width: 100%;
+    overflow-x: auto;
     border-radius: 8px;
+    border: 1px solid var(--border-color);
 }
 
 table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
+    border: none; /* Border moved to scroll container */
 }
 
 th {
