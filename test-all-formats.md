@@ -50,14 +50,34 @@ $$
 \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 $$
 
-## 4. Tables
+## 4. Tables (Data & Layout)
 
-| Feature | Status | Description |
-| :--- | :---: | :--- |
-| **Auto-Open** | ✅ | Opens preview alongside editor |
-| **Live Sync** | ✅ | Hot-reloads content instantly |
-| **Callouts** | ✅ | Professional design system colors |
-| **Comments** | ✅ | Floating action button for feedback |
+### 4.1. Feature Comparison (Aligned Columns)
+
+| Extension Feature | Status | Alignment | Priority |
+| :--- | :---: | ---: | :---: |
+| **Bilingual Support** | ✅ | Left | High |
+| **Mermaid Support** | ✅ | Center | Medium |
+| **Table Rendering** | ✅ | Right | High |
+| **LaTeX Support** | ✅ | Center | Low |
+
+### 4.2. Wide Table (Responsive Scroll Test)
+
+| ID | Project Name | Responsible Agent | Start Date | End Date | Status | Budget | Tech Stack | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| P-001 | **Quantum Prompting** | Agent Alpha | 2026-01-01 | 2026-03-31 | `ACTIVE` | $15,000 | Next.js, OpenAI | High priority research project. |
+| P-002 | **Neural Vision** | Agent Beta | 2026-02-15 | 2026-05-20 | `PLANNING` | $8,500 | Python, PyTorch | Focus on Veo 3.1 optimization. |
+| P-003 | **Glassmorphic UI** | Agent Gamma | 2026-04-10 | 2026-06-15 | `PENDING` | $12,000 | Tailwind, Vite | Premium design system extension. |
+| P-004 | **Legacy Sync** | Agent Delta | 2025-11-20 | 2026-01-15 | `COMPLETED` | $5,000 | Node.js | Migration of older prompt structures. |
+
+### 4.3. Rich Content in Cells
+
+| Component | Example Content |
+| :--- | :--- |
+| **Bold & Italic** | **Strict** vs *Creative* |
+| **Links** | [Go to Website](https://manhhuynh.work) |
+| **Code** | `const x = 10;` |
+| **Callouts** | Not supported inside cells |
 
 ## 5. Premium Prompt Blocks
 
