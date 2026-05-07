@@ -239,8 +239,9 @@ a:hover {
     opacity: 1;
 }
 
-/* Fix for nested blocks (e.g. inside carousel) to prevent clipping */
-.carousel-track .commentable-block > .global-comment-btn {
+/* Fix for nested or overflowing blocks (e.g. inside carousel or tables) to prevent clipping */
+.carousel-track .commentable-block > .global-comment-btn,
+.table-wrapper > .global-comment-btn {
     right: 8px;
     top: 8px;
     background: var(--bg-color);
@@ -476,6 +477,58 @@ img:hover {
 
 .mermaid {
     background: transparent !important;
+}
+
+/* Table Styles */
+.table-wrapper {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    overflow-y: visible; /* Allow comment button to show */
+    position: relative;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background-color: var(--card-bg);
+    color: var(--accent-color);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+}
+
+td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+th:last-child, td:last-child {
+    border-right: none;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Carousel Styles */
