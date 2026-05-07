@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.1] - 2026-05-07
+- Added professional Markdown table rendering with zebra-striping and hover effects.
+- Implemented responsive table-wrapper to support wide tables.
+- Fixed comment button positioning for tables to avoid clipping.
+
 ## [1.1.0] - 2026-05-07
 - Added Bilingual (Vietnamese/English) README.
 - Integrated Mermaid diagrams with IDE theme synchronization (no white backgrounds).
