@@ -59,25 +59,33 @@ a:hover {
 }
 
 .preview-header {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1rem;
+    padding-bottom: 0.8rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .header-actions {
     display: flex;
-    gap: 0.8rem;
+    gap: 0.5rem;
     align-items: center;
 }
 
 .header-btn {
-    background: transparent;
+    background: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.75rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -104,9 +112,14 @@ a:hover {
 }
 
 .file-title {
-    margin: 0.5rem 0 0 0;
-    font-size: 1.5rem;
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
     color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 400px;
 }
 
 /* Premium Code Wrapper */
@@ -201,21 +214,20 @@ a:hover {
 
 .global-comment-btn {
     position: absolute;
-    top: 50%;
-    right: -40px;
-    transform: translateY(-50%);
+    top: 4px;
+    right: -38px;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     opacity: 0;
     z-index: 10;
 }
@@ -225,6 +237,22 @@ a:hover {
 .commentable-block:hover > .global-comment-btn,
 .global-comment-btn.has-comment {
     opacity: 1;
+}
+
+/* Fix for nested blocks (e.g. inside carousel) to prevent clipping */
+.carousel-track .commentable-block > .global-comment-btn {
+    right: 8px;
+    top: 8px;
+    background: var(--bg-color);
+    box-shadow: 0 0 0 1px var(--border-color), 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* Adjust specifically for code blocks inside carousel to avoid overlap with copy button */
+.carousel-track .premium-code-wrapper > .global-comment-btn {
+    right: 75px; /* Shift left to avoid Copy button */
+    top: 6px;
+    height: 22px;
+    width: 22px;
 }
 
 .global-comment-btn:hover {
@@ -332,15 +360,21 @@ a:hover {
     background: var(--accent-color);
     color: var(--vscode-button-foreground, white);
     border: none;
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     cursor: pointer;
     display: none;
     align-items: center;
     gap: 0.4rem;
     box-shadow: none;
+    transition: all 0.2s ease;
+}
+
+.submit-comments-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
 }
 
 .submit-comments-btn.active {
@@ -365,14 +399,178 @@ a:hover {
 img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 12px;
     margin: 1.5rem 0;
-    box-shadow: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: block;
+    transition: all 0.3s ease;
+}
+
+img:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Callout Styles */
+.callout {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.callout-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.callout-icon {
+    display: flex;
+    align-items: center;
+}
+
+.callout-icon .icon {
+    width: 18px;
+    height: 18px;
+}
+
+.callout-note { border-left-color: #58a6ff; background: rgba(88, 166, 255, 0.05); }
+.callout-note .callout-header { color: #58a6ff; }
+
+.callout-tip { border-left-color: #3fb950; background: rgba(63, 185, 80, 0.05); }
+.callout-tip .callout-header { color: #3fb950; }
+
+.callout-warning { border-left-color: #d29922; background: rgba(210, 153, 34, 0.05); }
+.callout-warning .callout-header { color: #d29922; }
+
+.callout-important { border-left-color: #f85149; background: rgba(248, 81, 73, 0.05); }
+.callout-important .callout-header { color: #f85149; }
+
+.callout-content {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.callout-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Styles */
+.mermaid-wrapper {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.mermaid {
+    background: transparent !important;
+}
+
+/* Carousel Styles */
+.carousel-container {
+    position: relative;
+    margin: 2rem 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    /* overflow: visible to show comment button on the right */
+    overflow: visible;
+}
+
+.carousel-track {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    border-radius: 12px;
+    overflow: hidden; /* Content clipping happens here */
+}
+
+.carousel-slide {
+    display: none;
+    padding: 2rem;
+    animation: fadeIn 0.4s ease;
+}
+
+.carousel-slide.active {
     display: block;
 }
 
-.header-content {
+.carousel-slide img {
+    margin: 0 auto;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 5;
+}
+
+.carousel-nav:hover {
+    background: var(--accent-color);
+}
+
+.carousel-nav.prev { left: 10px; }
+.carousel-nav.next { right: 10px; }
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.05);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dot.active {
+    background: var(--accent-color);
+    transform: scale(1.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Error Styles */
+.error {
+    color: #f85149;
+    padding: 1rem;
+    border: 1px solid #f85149;
+    border-radius: 6px;
+    background: rgba(248, 81, 73, 0.05);
+    margin: 1rem 0;
 }

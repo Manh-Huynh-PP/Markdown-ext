@@ -1,52 +1,54 @@
-fsfsdf
+# PromptAgent Professional Preview Test Suite
 
-ddfgdfg
+This file tests the advanced rendering capabilities of the **PromptAgent Preview** extension, optimized for Prompt Engineering and Agent workflows.
 
----
+## 1. Professional Callouts (Design System)
 
-## 1. Typography & Text Formatting
+::: note
+**Note Callout**
+This is a standard information block. Use it for general context or background details that help the agent understand the task.
+:::
 
-Here is a normal paragraph with some **bold text**, *italic text*, and ~~strikethrough text~~. We also have `inline code` to ensure the monospace font looks correct.
+::: tip
+**Pro Tip**
+Use this to suggest specific techniques or shortcuts that can improve the quality of the generated response.
+:::
 
-### Heading Level 3
-<!-- [PROMPT_AGENT_COMMENT]: Cần kiểm tra lại font chữ của Heading 3 này xem đã premium chưa. -->
-#### Heading Level 4
-<!-- [PROMPT_AGENT_COMMENT]: Màu sắc của Heading 4 hơi nhạt, nên dùng Mars Orange. -->
-##### Heading Level 5
-###### Heading Level 6
+::: warning
+**Warning**
+Be careful with these parameters. Setting the temperature too high may result in hallucinated or inconsistent outputs.
+:::
 
----
+::: important
+**Critical Instruction**
+Always verify the output against the core requirements before finalizing the prompt. This step is mandatory.
+:::
 
-## 2. Blockquotes & Emphasis
+## 2. Advanced Typography & Markdown
 
-> **Design Philosophy**
-> 
-> "Measure twice, cut once. Avoid temporary hacks; build for the future."
-> 
-> — *The Elite Architect*
+  - subscript: H~2~O, Superscript: X^2^.
 
----
+## 3. Diagrams (Mermaid)
 
-## 3. Lists & Checkboxes
+```mermaid
+graph TD
+    A[Start Task] --> B{Is it complex?}
+    B -- Yes --> C[Create Implementation Plan]
+    B -- No --> D[Execute Directly]
+    C --> E[Wait for Approval]
+    E --> F[Execute Plan]
+    D --> G[Verify Output]
+    F --> G
+    G --> H[Final Walkthrough]
+```
 
-### Unordered List
-* Setup the development environment
-* Install dependencies
-* Configure `markdown-it`
+## 4. Mathematical Expressions (LaTeX)
 
-### Ordered List
-1. Parse the Markdown into tokens
-2. Apply the custom `fence` renderer
-3. Inject the Premium Wrapper
-4. Sync to Webview Panel
-
-### Task List
-- [x] Implement Auto-Trigger for `.md` files
-- [x] Fix the infinite focus loop bug
-- [x] Style the Antigravity UI
-- [ ] Implement persistent comment annotations
-
----
+- **Inline Math:** The energy equation is $E = mc^2$.
+- **Block Math:**
+$$
+\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
 
 ## 4. Tables
 
@@ -54,53 +56,62 @@ Here is a normal paragraph with some **bold text**, *italic text*, and ~~striket
 | :--- | :---: | :--- |
 | **Auto-Open** | ✅ | Opens preview alongside editor |
 | **Live Sync** | ✅ | Hot-reloads content instantly |
-| **1-Click Copy** | ✅ | Copies prompt directly to clipboard |
-| **Comments** | 🚧 | Floating action button (Mockup) |
+| **Callouts** | ✅ | Professional design system colors |
+| **Comments** | ✅ | Floating action button for feedback |
 
----
+## 5. Premium Prompt Blocks
 
-## 5. Premium Prompt Blocks (The Core Feature)
-
-Here are the custom code blocks that should trigger the Antigravity premium wrapper with the **Copy** and **Comment** buttons.
-
-### Standard Text Prompt
 ```text
 [Role]: You are an elite visual director.
 [Task]: Generate a prompt for a cinematic product video.
 [Style]: Dark, sleek, futuristic, glassmorphism.
 ```
 
-### Unspecified Block
-```
-This is a raw block with no language specified.
-It should default to "TEXT" in the header.
-```
-
-### JavaScript Block
 ```javascript
-// Test event delegation logic
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.copy-btn');
-    if (!btn) return;
-    
-    const wrapper = btn.closest('.premium-code-wrapper');
-    const codeNode = wrapper.querySelector('code');
-    
-    navigator.clipboard.writeText(codeNode.textContent).then(() => {
-        btn.classList.add('copied');
-        btn.innerHTML = '✅ Copied!';
-    });
-});
+// Test copy functionality
+function test() {
+    console.log("Premium Code Wrapper!");
+}
 ```
 
+## 6. Visual Media & Images
+
+- **Standard Image:**
+![Abstract 3D Art](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800)
+
+- **Interactive Carousel:**
+```carousel
+![Slide 1 - Abstract Geometry](https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800)
+### Slide 1: Abstract Geometry
+Testing the carousel with a high-quality abstract image and a descriptive caption.
+
+<!-- slide -->
+
+![Slide 2 - Cyberpunk Aesthetic](https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800)
+### Slide 2: Cyberpunk Aesthetic
+The carousel supports multiple slides with different content types, including images and markdown text.
+
+<!-- slide -->
+
+```javascript
+// You can even put code blocks inside slides!
+function helloCarousel() {
+    console.log("I am a slide with code!");
+}
+```
+### Slide 3: Code Content
+Testing recursive rendering of code blocks within carousel slides.
+```
+
+## 7. Technical Artifact Identification
+
+- `[INTERNAL_PROCESS]`: This text should be styled as secondary bracket text.
+- `[TODO]`: Another example of metadata identification.
+
+## 8. Footnote Definitions
+
+[^1]: Chain-of-Thought (CoT) is a prompting technique that encourages the model to explain its reasoning process step-by-step.
+
 ---
 
-## 6. Links & Images
-
-[Link to PromptAgent Documentation](https://github.com)
-
-![Antigravity UI System](https://raw.githubusercontent.com/microsoft/vscode/main/resources/linux/code.png)
-
----
-
-**End of Test File.** Open this file in VS Code to trigger the `PromptAgent Preview`.
+**End of Test File.**

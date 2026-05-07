@@ -123,8 +123,12 @@ export class PreviewPanel implements vscode.CustomTextEditorProvider {
             }
         });
 
-        // Initial setup
-        updateWebview();
+        // Initial setup - Deferred rendering to prevent UI hang
+        webviewPanel.webview.html = `<!DOCTYPE html><html><body style="background: var(--vscode-editor-background); color: var(--vscode-editor-foreground); padding: 20px; font-family: sans-serif;">Loading PromptAgent Preview...</body></html>`;
+        
+        setTimeout(() => {
+            updateWebview();
+        }, 100);
     }
 
     private _getHtmlForWebview(webview: vscode.Webview, document: vscode.TextDocument): string {
@@ -139,10 +143,30 @@ export class PreviewPanel implements vscode.CustomTextEditorProvider {
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} https:; script-src 'nonce-${nonce}' https://cdn.jsdelivr.net; style-src ${webview.cspSource} 'unsafe-inline';">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link href="${styleMainUri}" rel="stylesheet">
-                <title>Prompt Preview</title>
+                <script nonce="${nonce}" src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+                <script nonce="${nonce}">
+                    try {
+                        const isLight = document.body.classList.contains('vscode-light');
+                        mermaid.initialize({ 
+                            startOnLoad: false, 
+                            theme: isLight ? 'default' : 'dark',
+                            securityLevel: 'loose',
+                            themeVariables: {
+                                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                                primaryColor: '#58a6ff',
+                                primaryTextColor: isLight ? '#24292f' : '#c9d1d9',
+                                primaryBorderColor: '#30363d',
+                                lineColor: '#8b949e',
+                                secondaryColor: '#161b22',
+                                tertiaryColor: '#0d1117'
+                            }
+                        });
+                    } catch (e) { console.error('Mermaid init failed', e); }
+                </script>
+                <title>PromptAgent Preview</title>
             </head>
             <body class="antigravity-theme">
                 <div id="app">

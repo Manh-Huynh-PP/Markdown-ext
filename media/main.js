@@ -164,6 +164,33 @@
             }
             return;
         }
+
+        // Carousel Logic
+        const carouselContainer = event.target.closest('.carousel-container');
+        if (carouselContainer) {
+            const navBtn = event.target.closest('.carousel-nav');
+            const dot = event.target.closest('.dot');
+            
+            if (navBtn || dot) {
+                const slides = Array.from(carouselContainer.querySelectorAll('.carousel-slide'));
+                const dots = Array.from(carouselContainer.querySelectorAll('.dot'));
+                let currentIndex = slides.findIndex(s => s.classList.contains('active'));
+                
+                if (navBtn) {
+                    if (navBtn.classList.contains('prev')) {
+                        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                    } else {
+                        currentIndex = (currentIndex + 1) % slides.length;
+                    }
+                } else if (dot) {
+                    currentIndex = parseInt(dot.getAttribute('data-index'));
+                }
+                
+                // Update UI
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentIndex));
+                dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+            }
+        }
     });
 
     function injectAndRestoreComments() {
@@ -190,8 +217,31 @@
         });
     }
 
+    function triggerRenderers() {
+        // Trigger Mermaid
+        if (window.mermaid) {
+            try {
+                window.mermaid.run({
+                    querySelector: '.mermaid'
+                });
+            } catch (e) {
+                console.error('Mermaid run failed:', e);
+            }
+        }
+        
+        // Trigger MathJax if needed (usually automatic but can be forced)
+        if (window.MathJax && window.MathJax.typeset) {
+            try {
+                window.MathJax.typeset();
+            } catch (e) {
+                console.error('MathJax typeset failed:', e);
+            }
+        }
+    }
+
     // Run on initial load
     injectAndRestoreComments();
+    triggerRenderers();
 
     // Handle messages sent from the extension to the webview
     window.addEventListener('message', event => {
@@ -203,6 +253,7 @@
                     contentArea.innerHTML = message.html;
                     // Re-apply 'has-comment' classes based on commentsMap and inject comment buttons
                     injectAndRestoreComments();
+                    triggerRenderers();
                 }
                 break;
             case 'submissionComplete':
