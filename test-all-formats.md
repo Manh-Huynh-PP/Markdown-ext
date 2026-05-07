@@ -24,11 +24,28 @@ Be careful with these parameters. Setting the temperature too high may result in
 Always verify the output against the core requirements before finalizing the prompt. This step is mandatory.
 :::
 
-## 2. Advanced Typography & Markdown
+## 2. GitHub-Style Alerts (New)
+
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+
+## 3. Advanced Typography & Markdown
 
   - subscript: H~2~O, Superscript: X^2^.
 
-## 3. Diagrams (Mermaid)
+## 4. Diagrams (Mermaid)
 
 ```mermaid
 graph TD
@@ -42,7 +59,7 @@ graph TD
     G --> H[Final Walkthrough]
 ```
 
-## 4. Mathematical Expressions (LaTeX)
+## 5. Mathematical Expressions (LaTeX)
 
 - **Inline Math:** The energy equation is $E = mc^2$.
 - **Block Math:**
@@ -50,9 +67,9 @@ $$
 \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 $$
 
-## 4. Tables (Data & Layout)
+## 6. Tables (Data & Layout)
 
-### 4.1. Feature Comparison (Aligned Columns)
+### 6.1. Feature Comparison (Aligned Columns)
 
 | Extension Feature | Status | Alignment | Priority |
 | :--- | :---: | ---: | :---: |
@@ -61,7 +78,7 @@ $$
 | **Table Rendering** | ✅ | Right | High |
 | **LaTeX Support** | ✅ | Center | Low |
 
-### 4.2. Wide Table (Responsive Scroll Test)
+### 6.2. Wide Table (Responsive Scroll Test)
 
 | ID | Project Name | Responsible Agent | Start Date | End Date | Status | Budget | Tech Stack | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -70,7 +87,7 @@ $$
 | P-003 | **Glassmorphic UI** | Agent Gamma | 2026-04-10 | 2026-06-15 | `PENDING` | $12,000 | Tailwind, Vite | Premium design system extension. |
 | P-004 | **Legacy Sync** | Agent Delta | 2025-11-20 | 2026-01-15 | `COMPLETED` | $5,000 | Node.js | Migration of older prompt structures. |
 
-### 4.3. Rich Content in Cells
+### 6.3. Rich Content in Cells
 
 | Component | Example Content |
 | :--- | :--- |
@@ -79,7 +96,7 @@ $$
 | **Code** | `const x = 10;` |
 | **Callouts** | Not supported inside cells |
 
-## 5. Premium Prompt Blocks
+## 7. Premium Prompt Blocks
 
 ```text
 [Role]: You are an elite visual director.
@@ -94,7 +111,7 @@ function test() {
 }
 ```
 
-## 6. Visual Media & Images
+## 8. Visual Media & Images
 
 - **Standard Image:**
 ![Abstract 3D Art](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800)
@@ -123,12 +140,12 @@ function helloCarousel() {
 Testing recursive rendering of code blocks within carousel slides.
 ```
 
-## 7. Technical Artifact Identification
+## 9. Technical Artifact Identification
 
 - `[INTERNAL_PROCESS]`: This text should be styled as secondary bracket text.
 - `[TODO]`: Another example of metadata identification.
 
-## 8. Footnote Definitions
+## 10. Footnote Definitions
 
 [^1]: Chain-of-Thought (CoT) is a prompting technique that encourages the model to explain its reasoning process step-by-step.
 

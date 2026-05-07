@@ -450,8 +450,11 @@ img:hover {
 .callout-warning { border-left-color: #d29922; background: rgba(210, 153, 34, 0.05); }
 .callout-warning .callout-header { color: #d29922; }
 
-.callout-important { border-left-color: #f85149; background: rgba(248, 81, 73, 0.05); }
-.callout-important .callout-header { color: #f85149; }
+.callout-important { border-left-color: #8957e5; background: rgba(137, 87, 229, 0.05); }
+.callout-important .callout-header { color: #8957e5; }
+
+.callout-caution { border-left-color: #f85149; background: rgba(248, 81, 73, 0.05); }
+.callout-caution .callout-header { color: #f85149; }
 
 .callout-content {
     font-size: 0.95rem;

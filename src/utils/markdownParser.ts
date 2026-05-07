@@ -57,7 +57,7 @@ export class MarkdownParser {
                 // Configure Callout containers
                 try {
                     const container = require('markdown-it-container');
-                    const callouts = ['note', 'tip', 'warning', 'important'];
+                    const callouts = ['note', 'tip', 'warning', 'important', 'caution'];
                     callouts.forEach(type => {
                         md.use(container, type, {
                             render: (tokens: Token[], idx: number) => {
@@ -65,7 +65,8 @@ export class MarkdownParser {
                                 if (token.nesting === 1) {
                                     const icon = this._getCalloutIcon(type);
                                     const title = type.charAt(0).toUpperCase() + type.slice(1);
-                                    let lineAttr = token.map ? ` data-line-start="${token.map[0] + 1}" data-line-end="${token.map[1]}"` : '';
+                                    const map = token.map;
+                                    let lineAttr = map ? ` data-line-start="${map[0] + 1}" data-line-end="${map[1]}"` : '';
                                     return `<div class="callout callout-${type} commentable-block"${lineAttr}><div class="callout-header"><span class="callout-icon">${icon}</span><span class="callout-title">${title}</span></div><div class="callout-content">`;
                                 } else {
                                     return '</div></div>\n';
@@ -75,7 +76,66 @@ export class MarkdownParser {
                     });
                 } catch (e) {}
 
-                // Custom renderer for block rules to add line mapping
+                const defaultBlockquoteOpen = md.renderer.rules.blockquote_open || function(tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) {
+                    return self.renderToken(tokens, idx, options);
+                };
+
+                md.renderer.rules.blockquote_open = (tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) => {
+                    // Check if this blockquote starts with a GitHub-style alert [!TYPE]
+                    let i = idx + 1;
+                    // Find the first inline token to check for [!TYPE]
+                    while (i < tokens.length && tokens[i].type !== 'inline' && tokens[i].level > tokens[idx].level) {
+                        if (tokens[i].type === 'blockquote_close') break;
+                        i++;
+                    }
+                    
+                    if (i < tokens.length && tokens[i].type === 'inline') {
+                        const content = tokens[i].content.trim();
+                        const match = content.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
+                        if (match) {
+                            const type = match[1].toLowerCase();
+                            const icon = this._getCalloutIcon(type);
+                            const title = type.charAt(0).toUpperCase() + type.slice(1);
+                            
+                            // Remove the [!TYPE] from the content
+                            tokens[i].content = tokens[i].content.replace(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*/i, '');
+                            
+                            // Flag this blockquote as an alert so blockquote_close knows to close divs instead of blockquote
+                            tokens[idx].info = 'alert-' + type;
+                            
+                            const map = tokens[idx].map;
+                            let lineAttr = map ? ` data-line-start="${map[0] + 1}" data-line-end="${map[1]}"` : '';
+                            return `<div class="callout callout-${type} commentable-block"${lineAttr}><div class="callout-header"><span class="callout-icon">${icon}</span><span class="callout-title">${title}</span></div><div class="callout-content">`;
+                        }
+                    }
+
+                    const token = tokens[idx];
+                    if (token.map) {
+                        token.attrJoin('class', 'commentable-block');
+                        token.attrPush(['data-line-start', String(token.map[0] + 1)]);
+                        token.attrPush(['data-line-end', String(token.map[1])]);
+                    }
+                    return defaultBlockquoteOpen(tokens, idx, options, env, self);
+                };
+
+                md.renderer.rules.blockquote_close = (tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) => {
+                    // Find matching open token
+                    let openIdx = idx - 1;
+                    let nesting = 1;
+                    while (openIdx >= 0) {
+                        if (tokens[openIdx].type === 'blockquote_close') nesting++;
+                        if (tokens[openIdx].type === 'blockquote_open') nesting--;
+                        if (nesting === 0) break;
+                        openIdx--;
+                    }
+                    
+                    if (openIdx >= 0 && tokens[openIdx].info && tokens[openIdx].info.startsWith('alert-')) {
+                        return '</div></div>\n';
+                    }
+                    return '</blockquote>\n';
+                };
+
+                // Custom renderer for other block rules to add line mapping
                 const blockRules = ['paragraph', 'heading', 'blockquote', 'bullet_list', 'ordered_list', 'list_item'];
                 blockRules.forEach(rule => {
                     const defaultOpen = md.renderer.rules[`${rule}_open`] || function(tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) {
@@ -202,6 +262,7 @@ export class MarkdownParser {
             case 'tip': return '<svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>';
             case 'warning': return '<svg class="icon" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>';
             case 'important': return '<svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>';
+            case 'caution': return '<svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>';
             default: return '';
         }
     }
