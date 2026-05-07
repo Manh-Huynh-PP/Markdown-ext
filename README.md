@@ -21,12 +21,25 @@ Phần mở rộng cao cấp dành cho VS Code / Antigravity, được tối ưu
 - **Khối mã nguồn Tương tác**: Sao chép mã nguồn chỉ với một nhấp chuột.
 - **Chất lượng Thị giác**: Hình ảnh được bo góc, đổ bóng và hiệu ứng hover tinh tế.
 
-### 📦 Có gì mới (v1.1)
+### 📦 Có gì mới (v1.1.1)
 
+- **Bảng chuyên nghiệp**: Hỗ trợ render bảng với kẻ dọc, màu xen kẽ, hiệu ứng hover và thanh cuộn responsive.
 - **Tích hợp Mermaid**: Loại bỏ nền trắng, tự động đổi màu theo theme IDE.
 - **Hỗ trợ Carousel**: Sử dụng khối mã `carousel` và `<!-- slide -->` để tạo thư viện ảnh.
-- **Bố cục Tối ưu**: Header nhỏ gọn và xử lý thông minh vị trí nút comment cho các khối lồng nhau.
-- **Sửa lỗi**: Khắc phục vấn đề nút comment bị cắt mất trong các container đặc thù.
+- **Bố cục Tối ưu**: Xử lý thông minh vị trí nút comment cho các khối bảng và carousel để không bị cắt mất.
+
+### ⚙️ Cấu hình Editor Associations
+
+Để đảm bảo các file Artifact (như Implementation Plan, Task) được mở bằng trình soạn thảo chuyên dụng của Antigravity, bạn nên thêm cấu hình sau vào `settings.json` của VS Code:
+
+```json
+"workbench.editorAssociations": {
+    "**/implementation_plan*.md": "antigravity.artifactsEditorInput",
+    "**/task.md": "antigravity.artifactsEditorInput",
+    "**/walkthrough*.md": "antigravity.artifactsEditorInput",
+    "**/*.md": "promptagentPreview"
+}
+```
 
 ### 🚀 Bắt đầu sử dụng
 
@@ -51,20 +64,31 @@ Premium VS Code / Antigravity extension optimized for Prompt Engineers. Provides
 ### ✨ Key Features
 
 - **Premium UI**: Modern, flat design that blends seamlessly with your IDE theme.
+- **Professional Tables**: Enhanced table rendering with vertical borders, zebra-striping, and hover effects.
 - **Smart Feedback**: Add comments directly to blocks of text/code in the preview.
 - **Direct Chat Injection**: Submit your feedback directly to the Antigravity/Cursor Agent chat.
-- **Themed Mermaid Diagrams**: Native Mermaid support that automatically matches your IDE's dark/light theme.
+- **Themed Mermaid Diagrams**: Native Mermaid support that automatically matches your IDE's theme.
 - **Image Carousels**: Support for interactive image carousels using `carousel` code blocks.
-- **Compact Header**: Streamlined navigation with quick-access buttons (Copy Raw, Edit, Submit).
-- **Interactive Code Blocks**: One-click copy for all code snippets.
-- **Visual Excellence**: Premium image styling with shadows, rounded corners, and hover effects.
 
-### 📦 What's New (v1.1)
+### 📦 What's New (v1.1.1)
 
+- **Advanced Tables**: Professional data layout with responsive scroll and vertical column borders.
 - **Mermaid Integration**: No more white backgrounds! Fully theme-aware rendering.
 - **Carousel Support**: Use `carousel` blocks with `<!-- slide -->` to create galleries.
-- **Optimized Layout**: Compact header and smart comment button positioning.
-- **Bug Fixes**: Resolved clipping issues in nested containers.
+- **Optimized Layout**: Resolved comment button clipping in tables and nested containers.
+
+### ⚙️ Editor Associations Configuration
+
+To ensure AI Artifacts (like Implementation Plans and Tasks) open with Antigravity's specialized editors, add this to your `settings.json`:
+
+```json
+"workbench.editorAssociations": {
+    "**/implementation_plan*.md": "antigravity.artifactsEditorInput",
+    "**/task.md": "antigravity.artifactsEditorInput",
+    "**/walkthrough*.md": "antigravity.artifactsEditorInput",
+    "**/*.md": "promptagentPreview"
+}
+```
 
 ### 🚀 Getting Started
 
