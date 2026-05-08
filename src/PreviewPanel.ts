@@ -146,26 +146,7 @@ export class PreviewPanel implements vscode.CustomTextEditorProvider {
                 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} https:; script-src 'nonce-${nonce}' https://cdn.jsdelivr.net; style-src ${webview.cspSource} 'unsafe-inline';">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link href="${styleMainUri}" rel="stylesheet">
-                <script nonce="${nonce}" src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-                <script nonce="${nonce}">
-                    try {
-                        const isLight = document.body.classList.contains('vscode-light');
-                        mermaid.initialize({ 
-                            startOnLoad: false, 
-                            theme: isLight ? 'default' : 'dark',
-                            securityLevel: 'loose',
-                            themeVariables: {
-                                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-                                primaryColor: '#58a6ff',
-                                primaryTextColor: isLight ? '#24292f' : '#c9d1d9',
-                                primaryBorderColor: '#30363d',
-                                lineColor: '#8b949e',
-                                secondaryColor: '#161b22',
-                                tertiaryColor: '#0d1117'
-                            }
-                        });
-                    } catch (e) { console.error('Mermaid init failed', e); }
-                </script>
+                <script defer nonce="${nonce}" src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
                 <title>PromptAgent Preview</title>
             </head>
             <body class="antigravity-theme">

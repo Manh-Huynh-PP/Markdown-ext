@@ -221,6 +221,21 @@
         // Trigger Mermaid
         if (window.mermaid) {
             try {
+                const isLight = document.body.classList.contains('vscode-light');
+                window.mermaid.initialize({ 
+                    startOnLoad: false, 
+                    theme: isLight ? 'default' : 'dark',
+                    securityLevel: 'loose',
+                    themeVariables: {
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                        primaryColor: '#58a6ff',
+                        primaryTextColor: isLight ? '#24292f' : '#c9d1d9',
+                        primaryBorderColor: '#30363d',
+                        lineColor: '#8b949e',
+                        secondaryColor: '#161b22',
+                        tertiaryColor: '#0d1117'
+                    }
+                });
                 window.mermaid.run({
                     querySelector: '.mermaid'
                 });

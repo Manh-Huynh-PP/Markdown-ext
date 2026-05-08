@@ -1,6 +1,11 @@
 # Changelog
 
-## [1.1.1] - 2026-05-07
+## [1.1.1] - 2026-05-08
+- **Performance**: Eliminated cold-start delay by eagerly pre-loading the Markdown parser and plugins.
+- **Visuals**: Fixed Mermaid diagram layout so they can expand to full width dynamically.
+- **Syntax**: Added native support for GitHub-style Alerts (`> [!NOTE]`, `> [!TIP]`, etc.) with theme-aware callout boxes.
+- **Bug Fix**: Fixed bracket text regex to avoid styling conflicts with GitHub Alerts.
+- **Bug Fix**: Moved Mermaid initialization to DOM-ready to ensure robust theme detection.
 - Added professional Markdown table rendering with zebra-striping and hover effects.
 - Implemented responsive table-wrapper to support wide tables.
 - Fixed comment button positioning for tables to avoid clipping.

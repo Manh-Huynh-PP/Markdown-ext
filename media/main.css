@@ -468,17 +468,20 @@ img:hover {
 /* Mermaid Styles */
 .mermaid-wrapper {
     margin: 1.5rem 0;
-    padding: 1.5rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
     overflow-x: auto;
+    width: 100%;
+    min-width: 0; /* Prevent flex shrink issues */
 }
 
 .mermaid {
     background: transparent !important;
+    display: flex;
+    justify-content: center;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Table Styles */

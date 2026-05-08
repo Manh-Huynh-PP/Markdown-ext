@@ -23,10 +23,11 @@ Phần mở rộng cao cấp dành cho VS Code / Antigravity, được tối ưu
 
 ### 📦 Có gì mới (v1.1.1)
 
+- **Tối ưu Hiệu suất ⚡**: Khởi tạo trình phân tích Markdown ngay khi mở extension (Eager Load), loại bỏ hoàn toàn độ trễ trong lần đầu mở file.
+- **GitHub Alerts 🔔**: Hỗ trợ cú pháp cảnh báo chuẩn GitHub (`> [!NOTE]`, `> [!WARNING]`, v.v.) với giao diện Callout chuyên nghiệp.
+- **Sửa lỗi Mermaid 📐**: Cập nhật CSS để biểu đồ có thể mở rộng toàn chiều rộng (Full-width) thay vì bị giới hạn trong thẻ cố định, đồng thời sửa lỗi nhận diện theme.
 - **Bảng chuyên nghiệp**: Hỗ trợ render bảng với kẻ dọc, màu xen kẽ, hiệu ứng hover và thanh cuộn responsive.
-- **Tích hợp Mermaid**: Loại bỏ nền trắng, tự động đổi màu theo theme IDE.
 - **Hỗ trợ Carousel**: Sử dụng khối mã `carousel` và `<!-- slide -->` để tạo thư viện ảnh.
-- **Bố cục Tối ưu**: Xử lý thông minh vị trí nút comment cho các khối bảng và carousel để không bị cắt mất.
 
 ### ⚙️ Cấu hình Editor Associations
 
@@ -72,10 +73,11 @@ Premium VS Code / Antigravity extension optimized for Prompt Engineers. Provides
 
 ### 📦 What's New (v1.1.1)
 
+- **Performance Boost ⚡**: Eagerly pre-loads the Markdown parser to completely eliminate the cold-start delay.
+- **GitHub Alerts 🔔**: Native support for GitHub-style Alerts (`> [!NOTE]`, `> [!WARNING]`, etc.) with beautiful themed callouts.
+- **Mermaid Layout Fix 📐**: Diagrams now dynamically scale to full-width and theme detection is 100% reliable.
 - **Advanced Tables**: Professional data layout with responsive scroll and vertical column borders.
-- **Mermaid Integration**: No more white backgrounds! Fully theme-aware rendering.
 - **Carousel Support**: Use `carousel` blocks with `<!-- slide -->` to create galleries.
-- **Optimized Layout**: Resolved comment button clipping in tables and nested containers.
 
 ### ⚙️ Editor Associations Configuration
 

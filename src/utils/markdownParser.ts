@@ -19,6 +19,21 @@ export class MarkdownParser {
         return this.md;
     }
 
+    /**
+     * Eagerly pre-load the parser and all plugins at extension activation
+     * to eliminate cold-start delay on first file open.
+     */
+    public static initialize(): void {
+        try {
+            console.log('[PromptAgent] Eager pre-initialization starting...');
+            // Trigger full config by parsing an empty string
+            this.parse('');
+            console.log('[PromptAgent] Eager pre-initialization complete.');
+        } catch (e) {
+            console.error('[PromptAgent] Eager pre-initialization failed:', e);
+        }
+    }
+
     public static parse(content: string, webview?: vscode.Webview, documentUri?: vscode.Uri): string {
         try {
             const md = this.getParser();
@@ -47,7 +62,8 @@ export class MarkdownParser {
                 loadAndUse('Mark', 'markdown-it-mark');
                 loadAndUse('Ins', 'markdown-it-ins');
                 loadAndUse('Abbr', 'markdown-it-abbr');
-                loadAndUse('Container', 'markdown-it-container');
+                // NOTE: markdown-it-container is loaded per-type below (callouts).
+                // No generic registration needed here.
                 
                 // Load MathJax last as it is the heaviest
                 loadAndUse('MathJax', 'markdown-it-mathjax3');
@@ -84,8 +100,9 @@ export class MarkdownParser {
                     // Check if this blockquote starts with a GitHub-style alert [!TYPE]
                     let i = idx + 1;
                     // Find the first inline token to check for [!TYPE]
-                    while (i < tokens.length && tokens[i].type !== 'inline' && tokens[i].level > tokens[idx].level) {
-                        if (tokens[i].type === 'blockquote_close') break;
+                    // Defensive: also break if we overshoot nesting or reach end
+                    while (i < tokens.length && tokens[i].type !== 'inline') {
+                        if (tokens[i].type === 'blockquote_close' && tokens[i].level === tokens[idx].level) break;
                         i++;
                     }
                     
@@ -237,12 +254,12 @@ export class MarkdownParser {
                     return `<div class="premium-code-wrapper commentable-block" data-line-start="${lineStart}" data-line-end="${lineEnd}"><div class="code-header"><span class="code-lang">${lang.toUpperCase()}</span><button class="copy-btn"><svg class="icon" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy</button></div><div class="code-body">${highlightedCode}</div></div>`;
                 };
 
-                // Bracket text wrapper
+                // Bracket text wrapper (excludes [!NOTE], [!TIP] etc. to not break alert syntax)
                 const defaultText = md.renderer.rules.text || function(tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) {
                     return self.renderToken(tokens, idx, options);
                 };
                 md.renderer.rules.text = (tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) => {
-                    return defaultText(tokens, idx, options, env, self).replace(/\[([^\]]+)\]/g, '<span class="bracket-text">[$1]</span>');
+                    return defaultText(tokens, idx, options, env, self).replace(/\[(?!!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\])([^\]]+)\]/g, '<span class="bracket-text">[$1]</span>');
                 };
 
                 this.isConfigured = true;
