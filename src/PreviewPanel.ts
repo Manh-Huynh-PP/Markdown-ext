@@ -74,11 +74,11 @@ export class PreviewPanel implements vscode.CustomTextEditorProvider {
                                 console.log('🔄 Executing Safe UI Injection...');
                                 
                                 // 1. Mở UI & Focus: Tránh dùng 'startNewConversation' vì nó tạo chat mới làm mất context.
-                                // Dùng các lệnh focus thay thế. Vì Webview đang có focus, gọi lệnh mở view sẽ không gây toggle off.
+                                // Ưu tiên 'openAgent' thay vì 'toggleChatFocus' để tránh trường hợp chat đang mở lại bị đóng (toggle off).
                                 const focusCommands = [
-                                    'antigravity.toggleChatFocus',
                                     'antigravity.openAgent',
-                                    'workbench.action.chat.focus'
+                                    'workbench.action.chat.focus',
+                                    'antigravity.toggleChatFocus'
                                 ];
                                 
                                 for (const cmd of focusCommands) {
@@ -91,8 +91,8 @@ export class PreviewPanel implements vscode.CustomTextEditorProvider {
                                     }
                                 }
 
-                                // 2. Đợi UI ổn định hoàn toàn (1 giây)
-                                await new Promise(resolve => setTimeout(resolve, 1000));
+                                // 2. Đợi UI ổn định hoàn toàn (1.5 giây cho bản build production)
+                                await new Promise(resolve => setTimeout(resolve, 1500));
 
                                 // 3. Dán nội dung (Paste)
                                 // Vì startNewConversation đã focus sẵn, chúng ta dán luôn.

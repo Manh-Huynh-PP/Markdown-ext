@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.3] - 2026-05-08
+- **Bug Fix**: Reordered Agent chat focus logic to prevent toggling the chat panel off when already open in production builds.
+- **Bug Fix**: Increased paste timeout to 1.5s to ensure UI stability before injection.
+
 ## [1.1.2] - 2026-05-08
 - **Bug Fix**: Fixed Agent chat submission logic to correctly focus the existing chat view instead of launching a new conversation.
 
