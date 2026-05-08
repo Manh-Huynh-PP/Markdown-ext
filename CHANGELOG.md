@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.1.2] - 2026-05-08
+- **Bug Fix**: Fixed Agent chat submission logic to correctly focus the existing chat view instead of launching a new conversation.
+
 ## [1.1.1] - 2026-05-08
 - **Performance**: Eliminated cold-start delay by eagerly pre-loading the Markdown parser and plugins.
 - **Visuals**: Fixed Mermaid diagram layout so they can expand to full width dynamically.

@@ -73,13 +73,22 @@ export class PreviewPanel implements vscode.CustomTextEditorProvider {
                                 // CHIẾN THUẬT SIÊU ĐƠN GIẢN (Tránh Toggle)
                                 console.log('🔄 Executing Safe UI Injection...');
                                 
-                                // 1. Mở UI & Focus: Chỉ dùng 'startNewConversation'
-                                // Lệnh này trong Antigravity đã tự động Focus và KHÔNG gây Toggle (luôn mở).
-                                try {
-                                    await vscode.commands.executeCommand('antigravity.startNewConversation');
-                                    console.log('✅ startNewConversation triggered');
-                                } catch (err) {
-                                    console.log('⚠️ startNewConversation failed');
+                                // 1. Mở UI & Focus: Tránh dùng 'startNewConversation' vì nó tạo chat mới làm mất context.
+                                // Dùng các lệnh focus thay thế. Vì Webview đang có focus, gọi lệnh mở view sẽ không gây toggle off.
+                                const focusCommands = [
+                                    'antigravity.toggleChatFocus',
+                                    'antigravity.openAgent',
+                                    'workbench.action.chat.focus'
+                                ];
+                                
+                                for (const cmd of focusCommands) {
+                                    try {
+                                        await vscode.commands.executeCommand(cmd);
+                                        console.log(`✅ ${cmd} triggered`);
+                                        break;
+                                    } catch (err) {
+                                        console.log(`⚠️ ${cmd} failed`);
+                                    }
                                 }
 
                                 // 2. Đợi UI ổn định hoàn toàn (1 giây)
@@ -95,10 +104,16 @@ export class PreviewPanel implements vscode.CustomTextEditorProvider {
                                     console.error('❌ Paste failed:', err);
                                 }
                             } else if (appName.includes('cursor')) {
-                                try {
-                                    await vscode.commands.executeCommand('cursor.newChat');
-                                } catch {
-                                    await vscode.commands.executeCommand('aichat.newchataction');
+                                const cursorFocusCommands = [
+                                    'workbench.panel.aichat.view.focus',
+                                    'aichat.chatView.focus',
+                                    'cursor.chat.focus'
+                                ];
+                                for (const cmd of cursorFocusCommands) {
+                                    try {
+                                        await vscode.commands.executeCommand(cmd);
+                                        break;
+                                    } catch (e) {}
                                 }
                                 vscode.window.showInformationMessage('📋 Copied! Please paste into Cursor Chat.');
                             }
